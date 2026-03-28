@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BodyOverlay from "../components/portfolio/BodyOverlay.astro";
+import MobileNav from "../components/portfolio/MobileNav.astro";
+import RightNav from "../components/portfolio/RightNav.astro";
+import LeftSidebar from "../components/portfolio/LeftSidebar.astro";
+import SectionHero from "../components/portfolio/SectionHero.astro";
+import SectionExperience from "../components/portfolio/SectionExperience.astro";
+import SectionWorks from "../components/portfolio/SectionWorks.astro";
+import SectionServices from "../components/portfolio/SectionServices.astro";
+import SectionAbout from "../components/portfolio/SectionAbout.astro";
+import SectionTechStack from "../components/portfolio/SectionTechStack.astro";
+import SectionTestimonial from "../components/portfolio/SectionTestimonial.astro";
+import SectionPartners from "../components/portfolio/SectionPartners.astro";
+import SectionProcess from "../components/portfolio/SectionProcess.astro";
+import SectionAwards from "../components/portfolio/SectionAwards.astro";
+import SectionPricing from "../components/portfolio/SectionPricing.astro";
+import SectionFaqs from "../components/portfolio/SectionFaqs.astro";
+import SectionContact from "../components/portfolio/SectionContact.astro";
+import SiteFooter from "../components/portfolio/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="William Villalba — Desarrollo web | Villa1013"
+  description="Portfolio de William Villalba: desarrollo de software, interfaces y productos digitales. Disponible para proyectos. Colombia."
+  image="/asset/images/section/works-1.jpg"
+  lang="es-CO"
+>
+  <div id="wrapper">
+    <BodyOverlay />
+    <MobileNav />
+    <RightNav />
+    <LeftSidebar />
+
+    <!-- main-content -->
+    <div class="main-content relative">
+      <SectionHero />
+
+      <!-- wrapper-content -->
+      <div class="wrapper-content relative overflow-hidden">
+        <SectionExperience />
+        <SectionWorks />
+        <SectionServices />
+        <SectionAbout />
+        <SectionTechStack />
+        <SectionTestimonial />
+        <SectionPartners />
+        <SectionProcess />
+        <SectionAwards />
+        <SectionPricing />
+        <SectionFaqs />
+        <SectionContact />
+      </div>
+      <!-- /wrapper-content -->
+    </div>
+    <!-- /main-content -->
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
