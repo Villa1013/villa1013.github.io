@@ -1,6 +1,6 @@
 /**
- * Genera componentes .astro desde src/raw/portfolio-body.html (uso puntual).
- * Ejecutar: node scripts/split-portfolio-html.mjs
+ * Generates .astro components from src/raw/portfolio-body.html (one-off utility).
+ * Run: node scripts/split-portfolio-html.mjs
  */
 import fs from "node:fs";
 import path from "node:path";

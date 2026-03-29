@@ -6,7 +6,13 @@
     <div class="tf-container">
         <div class="row">
             <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
-                <div class="text-body-1 infor split-text split-lines-transform">San Francisco, CA 10:24 AM</div>
+                <div
+                    id="hero-visitor-local"
+                    class="text-body-1 infor"
+                    aria-live="polite"
+                >
+                    Loading location…
+                </div>
                 <div class="main-title">
                     <div class="text-body-1 dot-before subtitle">Introduction</div>
                     <h1 class="title split-text effect-right">Making Your World a Pain <br> Free Experience</h1>
@@ -45,3 +51,58 @@
     </div>
 </section>
 <!-- /section-hero -->
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById("hero-visitor-local");
+    if (!el) return;
+
+    function formatTime() {
+      var locale = navigator.language || "en-US";
+      return new Date().toLocaleTimeString(locale, {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+    }
+
+    function fallbackLocationLabel() {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, " ");
+    }
+
+    function render(locationLabel) {
+      el.textContent = locationLabel + " · " + formatTime();
+    }
+
+    async function fetchLocationLabel() {
+      try {
+        var res = await fetch("https://ipapi.co/json/");
+        var d = await res.json();
+        if (!d || d.error || !d.city) throw new Error("ipapi");
+        var parts = [d.city, d.region, d.country_name].filter(Boolean);
+        return parts.join(", ");
+      } catch (e1) {
+        try {
+          var res2 = await fetch("https://get.geojs.io/v1/ip/geo.json");
+          var g = await res2.json();
+          if (g && g.city) {
+            return [g.region, g.country].filter(Boolean).join(", ");
+          }
+        } catch (e2) {}
+      }
+      return fallbackLocationLabel();
+    }
+
+    var locationLabel = "";
+
+    function tick() {
+      render(locationLabel || fallbackLocationLabel());
+    }
+
+    fetchLocationLabel().then(function (label) {
+      locationLabel = label;
+      tick();
+      setInterval(tick, 30000);
+    });
+  })();
+</script>

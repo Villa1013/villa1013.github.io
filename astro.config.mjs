@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
-// Si publicas en GitHub Pages como usuario.github.io/Portfolio, usa:
+// If you deploy to GitHub Pages at username.github.io/Portfolio, set:
 // base: "/Portfolio",
 export default defineConfig({
   site: "https://villa1013.github.io",

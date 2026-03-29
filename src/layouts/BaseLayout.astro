@@ -2,19 +2,19 @@
 interface Props {
   title?: string;
   description?: string;
-  /** Ruta absoluta desde la raíz del sitio, p. ej. /asset/images/og.png (ideal 1200×630) */
+  /** Absolute path from site root, e.g. /asset/images/og.png (ideally 1200×630) */
   image?: string;
   lang?: string;
-  /** Sin @; se usa en twitter:site si lo defines */
+  /** Without @; used in twitter:site if set */
   twitterHandle?: string;
   noindex?: boolean;
 }
 
 const {
   title = "William Villalba — Villa1013 | Portfolio",
-  description = "Portfolio de William Villalba: desarrollo y experiencias digitales. Colombia.",
+  description = "William Villalba — software development, interfaces, and digital products. Based in Colombia.",
   image = "/asset/images/logo/favicon.png",
-  lang = "es-CO",
+  lang = "en-US",
   twitterHandle,
   noindex = false,
 } = Astro.props;
@@ -27,7 +27,7 @@ const personLd = {
   "@type": "Person",
   name: "William Villalba",
   url: Astro.site?.href ?? canonicalURL.origin,
-  jobTitle: "Desarrollador de software",
+  jobTitle: "Software Developer",
   address: {
     "@type": "PostalAddress",
     addressCountry: "CO",
