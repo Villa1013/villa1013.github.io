@@ -2583,6 +2583,9 @@ header .mobile-menu {
   justify-content: space-between;
   margin-bottom: 40px;
 }
+.left-sidebar .logo {
+  height: 23px;
+}
 .left-sidebar .image {
   display: flex;
   align-items: center;
@@ -4176,6 +4179,9 @@ header .mobile-menu {
     margin-left: auto;
     margin-right: auto;
   }
+  .left-sidebar .logo {
+    height: 29px;
+  }
   .left-sidebar .heading {
     margin-bottom: 24px;
   }
@@ -4519,6 +4525,12 @@ header .mobile-menu {
 @media (max-width: 424px) {
   .header .theme-btn {
     padding: 11px 43px 10px 43px;
+  }
+}
+
+@media (max-width: 375px) {
+  .left-sidebar .logo {
+    height: 24px;
   }
 }
 
