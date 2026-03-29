@@ -18,7 +18,7 @@
 :root {
   --black: #000000;
   --white: #ffffff;
-  --primary: #F3500F;
+  --primary: #35ac8a;
   --gradient1: radial-gradient(50% 50% at 50% 50%, #FB8F10 0%, #FE0101 100%);
   --gradient2: linear-gradient(144.12deg, #FB8F10 14.68%, #FE0101 81.68%);
   --gradient3: linear-gradient(136.55deg, #FB8F10 5.49%, #FE0101 100%);
@@ -988,7 +988,7 @@ form .msg-success {
   color: #1EF482;
 }
 form .msg-error {
-  color: #F3500F;
+  color: #35ac8a;
 }
 form .flat-alert {
   display: flex;
@@ -2223,7 +2223,7 @@ header .mobile-menu {
   position: relative;
 }
 .tf-setting-color .settings-color a:nth-child(1) {
-  background: #F3500F;
+  background: #35ac8a;
 }
 .tf-setting-color .settings-color a:nth-child(2) {
   background: #0C652E;
@@ -2325,7 +2325,7 @@ header .mobile-menu {
 
 
 [data-color-primary=color-primary-1] {
-  --primary: #F3500F;
+  --primary: #35ac8a;
 }
 
 [data-color-primary=color-primary-2] {
@@ -3905,7 +3905,7 @@ header .mobile-menu {
 }
 
 .theme-btn {
-  background: #F3500F;
+  background: #35ac8a;
   color: #fff;
   display: block;
   text-align: center;
@@ -3918,13 +3918,13 @@ header .mobile-menu {
   border: none;
   transition: 0.3s;
   cursor: pointer;
-  border: 2px solid #F3500F;
+  border: 2px solid #35ac8a;
   font-size: 16px;
   font-weight: 600;
 }
 .theme-btn:hover {
   background: none;
-  color: #F3500F;
+  color: #35ac8a;
 }
 
 /* wrap-header */
@@ -3936,7 +3936,7 @@ header .mobile-menu {
   margin-bottom: 33px;
 }
 .wrap-header h1 span {
-  color: #F3500F;
+  color: #35ac8a;
 }
 
 .demo-page {
