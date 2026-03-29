@@ -1,0 +1,115 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  /** Absolute path from site root, e.g. /asset/images/og.png (ideally 1200×630) */
+  image?: string;
+  lang?: string;
+  /** Without @; used in twitter:site if set */
+  twitterHandle?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = "William Villalba — Villa1013 | Portfolio",
+  description = "William Villalba — software development, interfaces, and digital products. Based in Colombia.",
+  image = "/asset/images/logo/favicon.png",
+  lang = "en-US",
+  twitterHandle,
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "William Villalba",
+  url: Astro.site?.href ?? canonicalURL.origin,
+  jobTitle: "Software Developer",
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "CO",
+  },
+  sameAs: [] as string[],
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: title.split("—")[0]?.trim() ?? title,
+  url: Astro.site?.href ?? canonicalURL.origin,
+  description,
+  inLanguage: lang,
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="William Villalba" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Villa1013" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:locale" content={lang.replace("-", "_")} />
+    <meta property="og:image" content={ogImageURL.href} />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL.href} />
+    {twitterHandle && <meta name="twitter:site" content={`@${twitterHandle.replace(/^@/, "")}`} />}
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="/asset/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/odometer.min.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/lightbox.min.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/css/animate.min.css" />
+    <link rel="stylesheet" href="/asset/font/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="/asset/icons/icomoon/style.css" />
+    <link rel="icon" type="image/png" href="/asset/images/logo/favicon.png" />
+    <link rel="apple-touch-icon" href="/asset/images/logo/favicon.png" />
+  </head>
+  <body class="counter-scroll">
+    <slot />
+    <!-- Plugins -->
+    <script is:inline src="/asset/js/bootstrap.min.js"></script>
+    <script is:inline src="/asset/js/jquery.min.js"></script>
+    <script is:inline src="/asset/js/jquery.validate.min.js"></script>
+    <script is:inline src="/asset/js/lazysize.min.js"></script>
+    <script is:inline src="/asset/js/wow.min.js"></script>
+    <script is:inline src="/asset/js/swiper-bundle.min.js"></script>
+    <script is:inline src="/asset/js/swiper.js"></script>
+    <script is:inline src="/asset/js/gsap.min.js"></script>
+    <script is:inline src="/asset/js/Splitetext.js"></script>
+    <script is:inline src="/asset/js/ScrollTrigger.min.js"></script>
+    <script is:inline src="/asset/js/ScrollSmooth.js"></script>
+    <script is:inline src="/asset/js/handleeffectgsap.js"></script>
+    <script is:inline src="/asset/js/odometer.min.js"></script>
+    <script is:inline src="/asset/js/counter.js"></script>
+    <script is:inline src="/asset/js/infinityslide.js"></script>
+    <script is:inline src="/asset/js/plugin.js"></script>
+    <script is:inline src="/asset/js/lightbox.min.js"></script>
+    <script is:inline src="/asset/js/main.js"></script>
+  </body>
+</html>

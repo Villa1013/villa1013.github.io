@@ -148,15 +148,87 @@
         });
     };
 
-    // contact form
+    // contact form (PHP legacy or Web3Forms JSON)
     var ajaxContactForm = function () {
+        var showContactAlert = function ($form, success, message) {
+            var cls = success ? 'msg-success' : 'msg-error';
+            $form.prepend(
+                $('<div />', {
+                    'class': 'flat-alert ' + cls,
+                    'text': message
+                }).append(
+                    $('<a class="close d-flex" href="#"><i class="icon icon-times-solid"></i></a>')
+                )
+            );
+            if (success) {
+                $form.find(':input').not('.submit').not('[type="hidden"]').val('');
+            }
+        };
+
         $('#form-contact').each(function () {
             $(this).validate({
                 submitHandler: function (form) {
                     var $form = $(form),
-                        str = $form.serialize(),
-                        loading = $('<div />', { 'class': 'loading' });
+                        loading = $('<div />', { 'class': 'loading' }),
+                        service = $form.data('form-service');
 
+                    if (service === 'web3forms') {
+                        var accessKey = $form.find('input[name="access_key"]').val();
+                        if (!accessKey) {
+                            showContactAlert(
+                                $form,
+                                false,
+                                'Missing PUBLIC_WEB3FORMS_ACCESS_KEY in your environment (.env).'
+                            );
+                            return;
+                        }
+                        var payload = {
+                            access_key: accessKey,
+                            subject: 'Portfolio Villa1013 — Contact form',
+                            name: $form.find('[name="name"]').val(),
+                            email: $form.find('[name="mail"]').val(),
+                            phone: $form.find('[name="phone"]').val(),
+                            message: $form.find('[name="message"]').val(),
+                        };
+                        $.ajax({
+                            type: 'POST',
+                            url: 'https://api.web3forms.com/submit',
+                            data: JSON.stringify(payload),
+                            contentType: 'application/json; charset=UTF-8',
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $form.find('.send-wrap').append(loading);
+                            },
+                            success: function (res) {
+                                if (res && res.success) {
+                                    showContactAlert(
+                                        $form,
+                                        true,
+                                        'Message sent successfully. I will get back to you soon.'
+                                    );
+                                } else {
+                                    showContactAlert(
+                                        $form,
+                                        false,
+                                        (res && res.message) || 'Could not send your message.'
+                                    );
+                                }
+                            },
+                            error: function () {
+                                showContactAlert(
+                                    $form,
+                                    false,
+                                    'Network error. Please try again later.'
+                                );
+                            },
+                            complete: function () {
+                                $form.find('.loading').remove();
+                            }
+                        });
+                        return;
+                    }
+
+                    var str = $form.serialize();
                     $.ajax({
                         type: "POST",
                         url: $form.attr('action'),

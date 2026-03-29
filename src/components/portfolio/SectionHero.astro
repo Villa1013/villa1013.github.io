@@ -1,0 +1,108 @@
+---
+---
+
+<!-- section-hero -->
+<section class="section-hero" id="home">
+    <div class="tf-container">
+        <div class="row">
+            <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
+                <div
+                    id="hero-visitor-local"
+                    class="text-body-1 infor"
+                    aria-live="polite"
+                >
+                    Loading location…
+                </div>
+                <div class="main-title">
+                    <div class="text-body-1 dot-before subtitle">Introduction</div>
+                    <h1 class="title split-text effect-right">Making Your World a Pain <br> Free Experience</h1>
+                    <div class="text-body-2 text">My passion lies in crafting elegant, straightforward digital experiences. <br> It's a love for simplicity, pure and simple</div>
+                </div>
+                <div class="indicators">
+                    <ul class="list-tags">
+                        <li><a class="text-body-2 wow fadeInUp" href="#">Branding</a></li>
+                        <li><a class="text-body-2 wow fadeInUp" data-wow-delay="0.1s" href="#">Art Direction</a></li>
+                        <li><a class="text-body-2 wow fadeInUp" data-wow-delay="0.2s" href="#">UI Design</a></li>
+                        <li><a class="text-body-2 wow fadeInUp" href="#">Webflow Development</a></li>
+                    </ul>
+                    <div class="indicators-wrap">
+                        <div class="indicators-item wow fadeInUp">
+                            <div class="text-body-1 dot-before indicators-title">Net Worth Gross</div>
+                            <div class="wg-counter style-1">
+                                <div class="flex align-items-center justify-content-end">
+                                    <div class="odometer text-display-2" data-number="20">10</div>
+                                    <span class="sub-odo text-display-2">M+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="indicators-item type-1 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="text-body-1 dot-before indicators-title">Success Rate</div>
+                            <div class="wg-counter style-1">
+                                <div class="flex align-items-center justify-content-end">
+                                    <div class="odometer text-display-2" data-number="98">10</div>
+                                    <span class="sub-odo text-display-2">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /section-hero -->
+
+<script is:inline>
+  (function () {
+    var el = document.getElementById("hero-visitor-local");
+    if (!el) return;
+
+    function formatTime() {
+      var locale = navigator.language || "en-US";
+      return new Date().toLocaleTimeString(locale, {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+    }
+
+    function fallbackLocationLabel() {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, " ");
+    }
+
+    function render(locationLabel) {
+      el.textContent = locationLabel + " · " + formatTime();
+    }
+
+    async function fetchLocationLabel() {
+      try {
+        var res = await fetch("https://ipapi.co/json/");
+        var d = await res.json();
+        if (!d || d.error || !d.city) throw new Error("ipapi");
+        var parts = [d.city, d.region, d.country_name].filter(Boolean);
+        return parts.join(", ");
+      } catch (e1) {
+        try {
+          var res2 = await fetch("https://get.geojs.io/v1/ip/geo.json");
+          var g = await res2.json();
+          if (g && g.city) {
+            return [g.region, g.country].filter(Boolean).join(", ");
+          }
+        } catch (e2) {}
+      }
+      return fallbackLocationLabel();
+    }
+
+    var locationLabel = "";
+
+    function tick() {
+      render(locationLabel || fallbackLocationLabel());
+    }
+
+    fetchLocationLabel().then(function (label) {
+      locationLabel = label;
+      tick();
+      setInterval(tick, 30000);
+    });
+  })();
+</script>
