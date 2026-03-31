@@ -19,11 +19,11 @@
   --black: #000000;
   --white: #ffffff;
   --primary: #35ac8a;
-  --gradient1: radial-gradient(50% 50% at 50% 50%, #FB8F10 0%, #FE0101 100%);
-  --gradient2: linear-gradient(144.12deg, #FB8F10 14.68%, #FE0101 81.68%);
-  --gradient3: linear-gradient(136.55deg, #FB8F10 5.49%, #FE0101 100%);
+  --gradient1: radial-gradient(50% 50% at 50% 50%, #061c16 0%, #07a578 100%);
+  --gradient2: linear-gradient(144.12deg, #061c16 14.68%, #07a578 81.68%);
+  --gradient3: linear-gradient(136.55deg, #061c16 5.49%, #07a578 100%);
   --gradient4: linear-gradient(213.44deg, #000000 43.78%, #BA4811 124.39%);
-  --gradient5: linear-gradient(150deg, #000000 29.69%, #FB8F10 51.45%, #FE0101 82.71%);
+  --gradient5: linear-gradient(150deg, #000000 29.69%, #061c16 51.45%, #07a578 82.71%);
   --gradient6: linear-gradient(125.1deg, #232323 28.16%, #A23F1E 120.37%);
 }
 
@@ -1932,7 +1932,7 @@ header .mobile-menu {
   content: "";
   width: 400px;
   height: 400px;
-  background-color: var(--secondary, #FB8410);
+  background-color: var(--secondary, #1d342a);
   filter: blur(100px);
 }
 .box-gradient1::after {
@@ -1958,7 +1958,7 @@ header .mobile-menu {
   content: "";
   width: 767px;
   height: 767px;
-  background-color: var(--secondary, #FB8410);
+  background-color: var(--secondary, #000000);
   filter: blur(100px);
 }
 .box-gradient2::after {
@@ -2330,7 +2330,7 @@ header .mobile-menu {
 
 [data-color-primary=color-primary-2] {
   --primary: #0C652E;
-  --secondary: #8C932B;
+  --secondary: rgb(31, 42, 40);
   --gradient1: radial-gradient(50% 50% at 50% 50%, #8C932B 0%, #0C652E 100%);
   --gradient2: linear-gradient(144.12deg, #8C932B 14.68%, #0C652E 81.68%);
   --gradient3: linear-gradient(136.55deg, #8C932B 5.49%, #0C652E 100%);
