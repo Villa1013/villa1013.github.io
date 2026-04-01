@@ -70,43 +70,56 @@
       });
     }
 
+    // Mejora del fallback: Extrae solo la ciudad o país del timezone (ej: "Europe/Madrid" -> "Madrid")
     function fallbackLocationLabel() {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, " ");
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (!tz) return "Your Location";
+      return tz.split('/').pop().replace(/_/g, " ");
     }
 
     function render(locationLabel) {
-      el.textContent = locationLabel + " · " + formatTime();
+      el.textContent = (locationLabel || fallbackLocationLabel()) + " · " + formatTime();
     }
 
     async function fetchLocationLabel() {
+      // Intento 1: GeoJS (Suele ser más estable y sin CORS headers agresivos)
       try {
-        var res = await fetch("https://ipapi.co/json/");
-        var d = await res.json();
-        if (!d || d.error || !d.city) throw new Error("ipapi");
-        var parts = [d.city, d.region, d.country_name].filter(Boolean);
-        return parts.join(", ");
-      } catch (e1) {
-        try {
-          var res2 = await fetch("https://get.geojs.io/v1/ip/geo.json");
-          var g = await res2.json();
-          if (g && g.city) {
-            return [g.region, g.country].filter(Boolean).join(", ");
-          }
-        } catch (e2) {}
+        const res = await fetch("https://get.geojs.io/v1/ip/geo.json");
+        if (!res.ok) throw new Error();
+        const g = await res.json();
+        if (g && (g.city || g.country)) {
+          return [g.city, g.country].filter(Boolean).join(", ");
+        }
+      } catch (e) {
+        console.warn("GeoJS failed, trying fallback...");
       }
+
+      // Intento 2: ip-api.com (Es muy rápido, pero solo funciona en HTTP a menos que sea Pro, 
+      // pero Cloudflare suele dejar pasar peticiones simples)
+      try {
+        const res3 = await fetch("https://ipapi.co/json/");
+        if (res3.status === 429) throw new Error("Rate limited");
+        const d = await res3.json();
+        if (d && !d.error && d.city) {
+          return [d.city, d.country_name].filter(Boolean).join(", ");
+        }
+      } catch (e) {
+        console.error("All location services failed.");
+      }
+
       return fallbackLocationLabel();
     }
 
-    var locationLabel = "";
+    let locationLabel = "";
 
-    function tick() {
-      render(locationLabel || fallbackLocationLabel());
-    }
+    // Renderizado inicial con fallback para que no diga "Loading..." mucho tiempo
+    render(fallbackLocationLabel());
 
     fetchLocationLabel().then(function (label) {
       locationLabel = label;
-      tick();
-      setInterval(tick, 30000);
+      render(locationLabel);
+      // Actualizar el reloj cada 30 segundos
+      setInterval(() => render(locationLabel), 30000);
     });
   })();
 </script>
