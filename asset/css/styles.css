@@ -1900,7 +1900,7 @@ header .mobile-menu {
 }
 
 .avatar-wrap {
-  background-image: url(../images/avatar/bg-avatar.png);
+  /* background-image: url(../images/avatar/bg-avatar.png); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
