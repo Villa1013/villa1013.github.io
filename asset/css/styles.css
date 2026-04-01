@@ -22,9 +22,9 @@
   --gradient1: radial-gradient(50% 50% at 50% 50%, #061c16 0%, #07a578 100%);
   --gradient2: linear-gradient(144.12deg, #061c16 14.68%, #07a578 81.68%);
   --gradient3: linear-gradient(136.55deg, #061c16 5.49%, #07a578 100%);
-  --gradient4: linear-gradient(213.44deg, #000000 43.78%, #BA4811 124.39%);
+  --gradient4: linear-gradient(213.44deg, #000000 43.78%, #02291e 124.39%);
   --gradient5: linear-gradient(150deg, #000000 29.69%, #061c16 51.45%, #07a578 82.71%);
-  --gradient6: linear-gradient(125.1deg, #232323 28.16%, #A23F1E 120.37%);
+  --gradient6: linear-gradient(125.1deg, #232323 28.16%, #00271b 120.37%);
 }
 
 /*---------- Reset css styles ----------- */
@@ -2810,10 +2810,10 @@ header .mobile-menu {
   padding: 98px 0 193px;
 }
 .section-hero .infor {
-  margin-bottom: 84px;
+  margin-bottom: 60px;
 }
 .section-hero .main-title {
-  margin-bottom: 116px;
+  margin-bottom: 60px;
 }
 .section-hero .main-title .subtitle {
   margin-bottom: 29px;
@@ -2827,7 +2827,7 @@ header .mobile-menu {
 }
 
 .indicators .list-tags {
-  max-width: 363px;
+  max-width: 663px;
   margin-bottom: 64px;
 }
 .indicators .indicators-wrap {

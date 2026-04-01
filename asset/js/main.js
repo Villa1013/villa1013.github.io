@@ -448,3 +448,12 @@
         settings_color();
     });
 })(jQuery);
+
+document.addEventListener('DOMContentLoaded', function() {
+    var video = document.querySelector('.body-overlay');
+    video.play().catch(function(error) {
+        // El video fue bloqueado por el navegador, intentamos mutearlo de nuevo y darle play
+        video.muted = true;
+        video.play();
+    });
+});
