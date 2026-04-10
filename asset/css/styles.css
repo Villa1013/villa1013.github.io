@@ -844,6 +844,12 @@ a {
   transform: rotate(-109.95deg);
   z-index: -10;
 }
+.tf-footer.absolute {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
 .bot-page {
   position: absolute;
@@ -1041,7 +1047,8 @@ form .flat-alert {
 .form-contact .pricing-list .item:hover, .form-contact .pricing-list .item.active {
   color: var(--primary);
 }
-.form-contact .bot-btn button {
+.form-contact .bot-btn button,
+.maintenance-actions a.pill-btn {
   padding: 4px 4px 4px 24px;
   display: flex;
   align-items: center;
@@ -1058,7 +1065,8 @@ form .flat-alert {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-.form-contact .bot-btn button .icon {
+.form-contact .bot-btn button .icon,
+.maintenance-actions a.pill-btn .icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4533,5 +4541,100 @@ header .mobile-menu {
     height: 24px;
   }
 }
+
+/*------------ Lang Toggle Button ---------------- */
+.lang-toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 58px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 767px) {
+  .lang-toggle-btn {
+    top: 14px;
+    right: 14px;
+    min-width: 52px;
+    height: 34px;
+    font-size: 12px;
+  }
+}
+
+/*------------ Maintenance Page ---------------- */
+.maintenance-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.maintenance-page .section-maintenance {
+  width: 100%;
+  padding: 40px 0;
+}
+.maintenance-page .maintenance-card {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(8px);
+  padding: 34px 28px;
+}
+.maintenance-page .maintenance-card .title {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+.maintenance-page .maintenance-card .desc {
+  color: rgba(255, 255, 255, 0.86);
+  max-width: 620px;
+}
+.maintenance-page .maintenance-actions {
+  margin-top: 22px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.maintenance-page .pill-btn {
+  font-size: 15px;
+}
+.maintenance-page .contact-inline {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.maintenance-page .contact-inline .name,
+.maintenance-page .contact-inline .mail {
+  margin-bottom: 8px;
+}
+@media (max-width: 991px) {
+  .maintenance-page .maintenance-page {
+    padding-top: 90px;
+  }
+}
+@media (max-width: 767px) {
+  #wrapper.maintenance-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+  }
+  #wrapper.maintenance-wrapper .left-sidebar{
+    margin-bottom: 50px;
+  }
+  .maintenance-page{
+    min-height: auto;
+    padding-top: 40px;
+    padding-bottom: 5px;
+  }
+  .maintenance-page .maintenance-card {
+    padding: 24px 18px;
+  }
+}
+
 
 /*# sourceMappingURL=styles.css.map */

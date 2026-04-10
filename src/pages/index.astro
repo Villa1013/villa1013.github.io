@@ -1,60 +1,49 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BodyOverlay from "../components/portfolio/BodyOverlay.astro";
-import MobileNav from "../components/portfolio/MobileNav.astro";
-import RightNav from "../components/portfolio/RightNav.astro";
 import LeftSidebar from "../components/portfolio/LeftSidebar.astro";
-import SectionHero from "../components/portfolio/SectionHero.astro";
-import SectionExperience from "../components/portfolio/SectionExperience.astro";
-import SectionWorks from "../components/portfolio/SectionWorks.astro";
-import SectionServices from "../components/portfolio/SectionServices.astro";
-import SectionAbout from "../components/portfolio/SectionAbout.astro";
-import SectionTechStack from "../components/portfolio/SectionTechStack.astro";
-import SectionTestimonial from "../components/portfolio/SectionTestimonial.astro";
-import SectionPartners from "../components/portfolio/SectionPartners.astro";
-import SectionProcess from "../components/portfolio/SectionProcess.astro";
-import SectionAwards from "../components/portfolio/SectionAwards.astro";
-import SectionPricing from "../components/portfolio/SectionPricing.astro";
-import SectionFaqs from "../components/portfolio/SectionFaqs.astro";
-import SectionContact from "../components/portfolio/SectionContact.astro";
-import SiteFooter from "../components/portfolio/SiteFooter.astro";
 ---
 
 <BaseLayout
-  title="William Villalba — Web Development | Villa1013"
-  description="William Villalba — software development, UI, and digital products. Open for projects. Colombia."
+  title="William Villalba | Under Construction"
+  description="William Villalba portfolio is under maintenance. Please contact me for new projects."
   image="/asset/images/section/works-1.jpg"
   lang="en-US"
 >
-  <div id="wrapper">
+  <div id="wrapper" class="maintenance-wrapper">
     <BodyOverlay />
-    <MobileNav />
-    <RightNav />
-    <LeftSidebar />
+    <LeftSidebar showButtons={false} />
 
-    <!-- main-content -->
-    <div class="main-content relative">
-      <SectionHero />
+    <div class="main-content relative maintenance-page">
+      <section class="section-maintenance" id="contact">
+        <div class="tf-container">
+          <div class="row">
+            <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
+              <div class="maintenance-card">
+                <div class="text-body-1 dot-before subtitle" data-i18n="landing.subtitle">Maintenance Mode</div>
+                <h1 class="title text-display-2" data-i18n="landing.title">Website under construction</h1>
+                <p class="text-body-1 desc" data-i18n="landing.message">
+                  We are making updates to deliver a better experience. The final portfolio will be available soon.
+                </p>
 
-      <!-- wrapper-content -->
-      <div class="wrapper-content relative overflow-hidden">
-        <SectionExperience />
-        <SectionWorks />
-        <SectionServices />
-        <SectionAbout />
-        <SectionTechStack />
-        <SectionTestimonial />
-        <SectionPartners />
-        <SectionProcess />
-        <!-- <SectionAwards /> -->
-        <SectionPricing />
-        <!-- <SectionFaqs /> -->
-        <SectionContact />
-      </div>
-      <!-- /wrapper-content -->
+                <div class="maintenance-actions">
+                  <a class="pill-btn primary" href="mailto:williamvillalba13@gmail.com">
+                    <span data-i18n="landing.cta_email" class="font-poppins flex-grow-1 text-start">Contact by email</span>
+                    <i class="icon icon-arrow-top-right"></i>
+                  </a>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <!-- /main-content -->
 
-    <SiteFooter />
+    <!-- footer -->
+    <footer class="tf-footer style-1 absolute bottom-0 width-100 height-100 z-10">
+      <img src="https://wpriverthemes.com/HTML/jayden/asset/images/section/img-bg-2.png" alt="" class="map">
+      <div class="box-gradient2"></div>
+    </footer>
   </div>
 </BaseLayout>

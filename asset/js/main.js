@@ -150,6 +150,27 @@
 
     // contact form (PHP legacy or Web3Forms JSON)
     var ajaxContactForm = function () {
+        var getLang = function () {
+            var lang = localStorage.getItem('site_lang');
+            return lang === 'es' ? 'es' : 'en';
+        };
+        var i18n = {
+            en: {
+                missingKey: 'Missing PUBLIC_WEB3FORMS_ACCESS_KEY in your environment (.env).',
+                sent: 'Message sent successfully. I will get back to you soon.',
+                sendError: 'Could not send your message.',
+                networkError: 'Network error. Please try again later.',
+            },
+            es: {
+                missingKey: 'Falta configurar PUBLIC_WEB3FORMS_ACCESS_KEY en el entorno (.env).',
+                sent: 'Mensaje enviado correctamente. Te responderé pronto.',
+                sendError: 'No se pudo enviar tu mensaje.',
+                networkError: 'Error de red. Intenta nuevamente más tarde.',
+            }
+        };
+        var tr = function (key) {
+            return i18n[getLang()][key];
+        };
         var showContactAlert = function ($form, success, message) {
             var cls = success ? 'msg-success' : 'msg-error';
             $form.prepend(
@@ -178,7 +199,7 @@
                             showContactAlert(
                                 $form,
                                 false,
-                                'Missing PUBLIC_WEB3FORMS_ACCESS_KEY in your environment (.env).'
+                                tr('missingKey')
                             );
                             return;
                         }
@@ -204,13 +225,13 @@
                                     showContactAlert(
                                         $form,
                                         true,
-                                        'Message sent successfully. I will get back to you soon.'
+                                        tr('sent')
                                     );
                                 } else {
                                     showContactAlert(
                                         $form,
                                         false,
-                                        (res && res.message) || 'Could not send your message.'
+                                        (res && res.message) || tr('sendError')
                                     );
                                 }
                             },
@@ -218,7 +239,7 @@
                                 showContactAlert(
                                     $form,
                                     false,
-                                    'Network error. Please try again later.'
+                                    tr('networkError')
                                 );
                             },
                             complete: function () {
