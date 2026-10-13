@@ -1,4 +1,8 @@
 ---
+import { projects } from "../../data/projects";
+
+const pathname = Astro.url.pathname.replace(/\/+$/, "");
+const lang: "en" | "es" = pathname.startsWith("/es") || pathname.indexOf("/es/") !== -1 ? "es" : "en";
 ---
 
 <!-- section-selected-works -->
@@ -23,74 +27,28 @@
                     </div>
                 </div>
                 <div class="works-wrap">
-                    <div class="works-item scrolling-effect effectLeft">
-                        <a class="image" href="asset/images/section/works-1.jpg" data-lightbox="example-1">
-                            <img class="lazyload" src="asset/images/section/works-1.jpg" data-src="asset/images/section/works-1.jpg" alt="">
-                        </a>
-                        <div class="content">
-                            <div class="infor">
-                                <div class="sub-heading sub">Platform Dev</div>
-                                <h3 class="title">
-                                    <a href="#">Rumbo Terpel</a>
-                                </h3>
-                                <a href="#" class="link date text-body-2 type-tags">May 2024</a>
+                    {projects.map((project) => {
+                        const t = project[lang];
+                        const workHref = `/work/${project.slug}/`;
+                        return (
+                            <div class="works-item scrolling-effect effectLeft">
+                                <a class="image" href={workHref}>
+                                    <img class="lazyload" src={project.image} data-src={project.image} alt={`${t.name} - ${t.category}`} />
+                                </a>
+                                <div class="content">
+                                    <div class="infor">
+                                        <div class="sub-heading sub">{t.category}</div>
+                                        <h3 class="title">
+                                            <a href={workHref}>{t.name}</a>
+                                        </h3>
+                                    </div>
+                                    <a href={workHref} class="btn-links">
+                                        <i class="icon icon-arrow-top-right"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <a href="#" class="btn-links">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="works-item scrolling-effect effectLeft">
-                        <a class="image" href="asset/images/section/works-1.jpg" data-lightbox="example-1">
-                            <img class="lazyload" src="asset/images/section/works-1.jpg" data-src="asset/images/section/works-1.jpg" alt="">
-                        </a>
-                        <div class="content">
-                            <div class="infor">
-                                <div class="sub-heading sub">Website Dev</div>
-                                <h3 class="title">
-                                    <a href="#">Prolibu Tech</a>
-                                </h3>
-                                <a href="#" class="link date text-body-2 type-tags">May 2024</a>
-                            </div>
-                            <a href="https://prolibu.com/" target="_blank" class="btn-links">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="works-item scrolling-effect effectLeft">
-                        <a class="image" href="asset/images/section/works-2.jpg" data-lightbox="example-1">
-                            <img class="lazyload" src="asset/images/section/works-2.jpg" data-src="asset/images/section/works-2.jpg" alt="">
-                        </a>
-                        <div class="content">
-                            <div class="infor">
-                                <div class="sub-heading sub">Mobile App Design</div>
-                                <h3 class="title">
-                                    <a href="#">X-direct Mobile</a>
-                                </h3>
-                                <a href="#" class="link date text-body-2 type-tags">May 2024</a>
-                            </div>
-                            <a href="#" class="btn-links">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="works-item scrolling-effect effectLeft">
-                        <a class="image" href="asset/images/section/works-3.jpg" data-lightbox="example-1">
-                            <img class="lazyload" src="asset/images/section/works-3.jpg" data-src="asset/images/section/works-3.jpg" alt="">
-                        </a>
-                        <div class="content">
-                            <div class="infor">
-                                <div class="sub-heading sub">Website Design</div>
-                                <h3 class="title">
-                                    <a href="#">UIXDR Agency Website</a>
-                                </h3>
-                                <a href="#" class="link date text-body-2 type-tags">May 2024</a>
-                            </div>
-                            <a href="#" class="btn-links">
-                                <i class="icon icon-arrow-top-right"></i>
-                            </a>
-                        </div>
-                    </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

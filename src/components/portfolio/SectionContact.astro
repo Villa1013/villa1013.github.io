@@ -1,9 +1,11 @@
 ---
 /**
- * Submissions via Web3Forms (static site). Create a key at https://web3forms.com
- * and set the recipient email in their dashboard.
+ * Contact cards — WhatsApp, LinkedIn, Email.
  */
-const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
+const whatsappNumber = "+573006315963";
+const whatsappMessage = encodeURIComponent("Hola William, me gustaría conversar sobre un proyecto.");
+const linkedinUrl = "https://www.linkedin.com/in/williamvillalba/";
+const emailAddress = "williamvillalba13@gmail.com";
 ---
 
 <!-- section-contact -->
@@ -12,41 +14,82 @@ const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
         <div class="row">
             <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
                 <div class="section-contact-inner">
-                    <h1 class="fw-medium heading" data-i18n-html="contact.heading">Contact For <br> Work</h1>
-                    <form
-                        class="form-contact"
-                        id="form-contact"
-                        method="post"
-                        action="https://api.web3forms.com/submit"
-                        data-form-service="web3forms"
-                    >
-                        <input type="hidden" name="access_key" value={accessKey} />
-                        <fieldset class="fiel-mail">
-                            <label class="text-xs-2" data-i18n="contact.your_name">Your Name</label>
-                            <input type="text" name="name" id="name" placeholder="Enter your name" data-i18n-placeholder="contact.ph_name" value="" aria-required="true" required>
-                        </fieldset>
-                        <fieldset class="fiel-mail">
-                            <label class="text-xs-2" data-i18n="contact.your_email">Your Email</label>
-                            <input type="email" name="mail" id="mail" placeholder="Enter the Email" data-i18n-placeholder="contact.ph_email" value="" aria-required="true" required>
-                        </fieldset>
-                        <fieldset class="fiel-phone">
-                            <label class="text-xs-2" data-i18n="contact.your_phone">Your Phone</label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter your phone number" data-i18n-placeholder="contact.ph_phone" value="" aria-required="true" required>
-                        </fieldset>
-                        <fieldset class="fiel-text">
-                            <label class="text-xs-2" data-i18n="contact.message">Message</label>
-                            <textarea placeholder="" aria-required="true" id="message" required name="message"></textarea>
-                        </fieldset>
-                        <div class="bot-btn send-wrap">
-                            <button type="submit" class="text-body-2 fw-medium">
-                                <span class="font-poppins flex-grow-1 text-start" data-i18n="common.get_started">Get Started</span>
+                    <div class="heading">
+                        <div class="text-display-2 fw-medium title split-text effect-right" data-i18n-html="contact.heading">Contact For <br> Work</div>
+                    </div>
+
+                    <div class="contact-cards">
+                        <a href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`} target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="contact-card-icon contact-card-icon--whatsapp">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3 class="contact-card-title">WhatsApp</h3>
+                                <p class="contact-card-text">+57 300 631 59 63</p>
+                            </div>
+                            <span class="contact-card-arrow">
                                 <i class="icon icon-arrow-top-right"></i>
-                            </button>
-                        </div>
-                    </form>
+                            </span>
+                        </a>
+
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="contact-card">
+                            <div class="contact-card-icon contact-card-icon--linkedin">
+                                <i class="icon icon-linkedin-in"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3 class="contact-card-title">LinkedIn</h3>
+                                <p class="contact-card-text">William Villalba</p>
+                            </div>
+                            <span class="contact-card-arrow">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </span>
+                        </a>
+
+                        <a href={`mailto:${emailAddress}`} class="contact-card">
+                            <div class="contact-card-icon contact-card-icon--email">
+                                <i class="icon icon-envelope-solid"></i>
+                            </div>
+                            <div class="contact-card-content">
+                                <h3 class="contact-card-title">Email</h3>
+                                <p class="contact-card-text">{emailAddress}</p>
+                            </div>
+                            <span class="contact-card-arrow">
+                                <i class="icon icon-arrow-top-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- /section-contact -->
+
+<script is:inline>
+    (function () {
+        function initContactAnimations() {
+            if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+            gsap.registerPlugin(ScrollTrigger);
+
+            var cards = document.querySelectorAll(".contact-card");
+            cards.forEach(function (card, i) {
+                gsap.from(card, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.7,
+                    delay: i * 0.12,
+                    ease: "power3.out",
+                    scrollTrigger: { trigger: card, start: "top 92%", once: true },
+                });
+            });
+        }
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initContactAnimations);
+        } else {
+            initContactAnimations();
+        }
+    })();
+</script>

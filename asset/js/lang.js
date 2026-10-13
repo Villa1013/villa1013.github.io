@@ -20,7 +20,7 @@
         "sidebar.available": "Available for",
         "sidebar.new_projects": "new projects",
         "sidebar.role_location": "Software Development / Colombia",
-        "common.get_started": "Get Started",
+        "common.get_started": "Contact me",
         "hero.loading_location": "Loading location...",
         "hero.introduction": "Introduction",
         "hero.title":
@@ -31,7 +31,7 @@
         "hero.tag_mobile": "Mobile Development",
         "hero.projects_worked": "Projects Worked",
         "hero.success_rate": "Success Rate",
-        "contact.heading": "Contact For <br> Work",
+        "contact.heading": "Open to <br> project",
         "contact.your_name": "Your Name",
         "contact.your_email": "Your Email",
         "contact.your_phone": "Your Phone",
@@ -46,6 +46,9 @@
           "We are making updates to deliver a better experience. The final portfolio will be available soon.",
         "landing.cta_email": "Contact by email",
         "landing.cta_portfolio": "View current portfolio",
+        "modal.role": "Role",
+        "modal.technologies": "Technologies",
+        "modal.view_project": "View Project",
       },
       es: {
         "ui.lang_toggle": "EN",
@@ -59,15 +62,15 @@
         "nav.works": "Trabajos destacados",
         "nav.works_short": "Trabajos",
         "nav.services": "Servicios",
-        "nav.about": "Acerca de",
+        "nav.about": "Sobre mí",
         "nav.testimonial": "Testimonios",
         "nav.partners": "Aliados",
         "nav.pricing": "Precios",
         "nav.contact": "Contacto",
-        "sidebar.available": "Disponible para",
+        "sidebar.available": "Abierto a",
         "sidebar.new_projects": "nuevos proyectos",
         "sidebar.role_location": "Software Development / Colombia",
-        "common.get_started": "Comenzar",
+        "common.get_started": "Contáctame",
         "hero.loading_location": "Cargando ubicación...",
         "hero.introduction": "Introducción",
         "hero.title":
@@ -78,7 +81,7 @@
         "hero.tag_mobile": "Desarrollo Móvil",
         "hero.projects_worked": "Proyectos trabajados",
         "hero.success_rate": "Tasa de éxito",
-        "contact.heading": "Contacto para <br> trabajar",
+        "contact.heading": "Abierto a <br> proyectos",
         "contact.your_name": "Tu nombre",
         "contact.your_email": "Tu correo",
         "contact.your_phone": "Tu teléfono",
@@ -93,17 +96,25 @@
           "Estamos realizando actualizaciones para ofrecer una mejor experiencia. El portafolio final estará disponible pronto.",
         "landing.cta_email": "Contactar por correo",
         "landing.cta_portfolio": "Ver portafolio actual",
+        "modal.role": "Rol",
+        "modal.technologies": "Tecnologías",
+        "modal.view_project": "Ver Proyecto",
       },
     };
 
-    var STORAGE_KEY = "site_lang";
+    function getLangFromPath(pathname) {
+      var path = pathname.replace(/\/+$/, "");
+      if (path.endsWith("/es") || path.indexOf("/es/") !== -1) return "es";
+      return "en";
+    }
 
-    function getInitialLang() {
-      var saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "en" || saved === "es") return saved;
-      return navigator.language && navigator.language.toLowerCase().startsWith("es")
-        ? "es"
-        : "en";
+    function getAlternateURL(pathname, targetLang) {
+      var path = pathname.replace(/\/+$/, "");
+      if (targetLang === "es") {
+        if (path.indexOf("/es") === 0) return path;
+        return "/es" + (path === "" ? "/" : path);
+      }
+      return path.replace(/^\/es/, "") || "/";
     }
 
     function t(lang, key) {
@@ -141,15 +152,24 @@
       if (twDesc) twDesc.setAttribute("content", t(lang, "seo.description"));
     }
 
-    var currentLang = getInitialLang();
-    applyLang(currentLang);
+    var currentLang = getLangFromPath(window.location.pathname);
+    localStorage.setItem("site_lang", currentLang);
+
+    var isSSRPage = document.querySelector('meta[name="description"]');
+    var hasDataI18n = document.querySelector("[data-i18n]");
+
+    if (isSSRPage && !hasDataI18n) {
+      document.documentElement.lang = currentLang === "es" ? "es-CO" : "en-US";
+    } else {
+      applyLang(currentLang);
+    }
 
     var toggle = document.getElementById("lang-toggle");
     if (toggle) {
+      toggle.textContent = currentLang === "en" ? "ES" : "EN";
       toggle.addEventListener("click", function () {
-        currentLang = currentLang === "en" ? "es" : "en";
-        localStorage.setItem(STORAGE_KEY, currentLang);
-        applyLang(currentLang);
+        var newLang = currentLang === "en" ? "es" : "en";
+        window.location.href = getAlternateURL(window.location.pathname, newLang);
       });
     }
   })();

@@ -1,11 +1,11 @@
 ---
-const { showButtons = true } = Astro.props;
+const { showButtons = true, langPrefix = "" } = Astro.props;
 ---
 
 <!-- left-sidebar -->
 <div class="left-sidebar">
     <div class="heading">
-        <img src="asset/images/logo/logo-william-villalba.svg" class="logo" alt="William Villalba Development">
+        <img src="/asset/images/logo/logo-william-villalba.svg" class="logo" alt="William Villalba Development">
         <div class="box-status">
             <div class="dot"></div>
             <div class="text-body-2"><span data-i18n="sidebar.available">Available for</span> <span class="number" data-i18n="sidebar.new_projects">new projects</span></div>
@@ -13,10 +13,10 @@ const { showButtons = true } = Astro.props;
     </div>
     <div class="image">
        <div class="avatar avatar-wrap">
-            <img class="lazyload avatar-bg" src="asset/images/avatar/avatar-full.png" data-src="asset/images/avatar/avatar-full.png" alt="villa1013">
+            <img class="lazyload avatar-bg" src="/asset/images/avatar/avatar-full.png" data-src="/asset/images/avatar/avatar-full.png" alt="villa1013">
             <!-- <img class="lazyload avatar-no-bg" style="display: none;" src="asset/images/avatar/avatar-1.png" data-src="asset/images/avatar/avatar-1.png" alt=""> -->
         </div>
-        <img class="lazyload signature" src="asset/images/section/signature-1.png" data-src="asset/images/section/signature-1.png" alt="">
+        <!-- <img class="lazyload signature" src="/asset/images/section/signature-1.png" data-src="/asset/images/section/signature-1.png" alt=""> -->
         <!-- <div class="text-signature">Villa1013</div> -->
     </div>
     <div class="infor">
@@ -40,8 +40,8 @@ const { showButtons = true } = Astro.props;
         </li>
     </ul>
     {showButtons && (
-        <a href="#contact" class="bot-button">
-            <div class="text-body-1 text" data-i18n="common.get_started">Get Started</div>
+        <a href={langPrefix + "/#contact"} class="bot-button">
+            <div class="text-body-1 text" data-i18n="common.get_started">Hire Me</div>
             <i class="icon icon-arrow-top-right"></i>
         </a>
     )}

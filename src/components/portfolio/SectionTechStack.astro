@@ -1,4 +1,5 @@
 ---
+import { techStack } from "../../data/techstack";
 ---
 
 <!-- section-tech-stack -->
@@ -9,51 +10,21 @@
                 <div class="text-display-2 fw-medium heading split-text effect-right">Tech Stack</div>
                 <div class="swiper slider-tech-stack">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="tech-stack-item">
-                                <h3 class="fw-medium title">Figma</h3>
-                                <div class="image">
-                                    <img src="asset/images/section/figma.png" alt="">
+                        {techStack.map((category, index) => (
+                            <div class="swiper-slide">
+                                <div class="tech-stack-card">
+                                    <div class="tech-stack-card-header">
+                                        <span class="tech-stack-card-subtitle">0{index + 1}</span>
+                                        <h3 class="tech-stack-card-title">{category.en.title}</h3>
+                                    </div>
+                                    <div class="tech-stack-card-items">
+                                        {category.items.map((item) => (
+                                            <span class="tech-stack-card-item">{item}</span>
+                                        ))}
+                                    </div>
                                 </div>
-                                <div class="text-body-1">Leading collaborative design <br> tool</div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tech-stack-item">
-                                <h3 class="fw-medium title">Loom</h3>
-                                <div class="image">
-                                    <img src="asset/images/section/loom.png" alt="">
-                                </div>
-                                <div class="text-body-1">Leading collaborative design tool</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tech-stack-item">
-                                <h3 class="fw-medium title">Framer</h3>
-                                <div class="image">
-                                    <img src="asset/images/section/framer.png" alt="">
-                                </div>
-                                <div class="text-body-1">Leading collaborative design tool</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tech-stack-item">
-                                <h3 class="fw-medium title">Slack</h3>
-                                <div class="image">
-                                    <img src="asset/images/section/slack.png" alt="">
-                                </div>
-                                <div class="text-body-1">Leading collaborative design tool</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="tech-stack-item">
-                                <h3 class="fw-medium title">Monday</h3>
-                                <div class="image">
-                                    <img src="asset/images/section/monday.png" alt="">
-                                </div>
-                                <div class="text-body-1">Leading collaborative design tool</div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                     <div class="swiper-pagination pagination-tech-stack"></div>
                 </div>

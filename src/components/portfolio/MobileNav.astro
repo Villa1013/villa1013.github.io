@@ -1,4 +1,10 @@
 ---
+interface Props {
+  langPrefix?: string;
+  isDetailPage?: boolean;
+}
+
+const { langPrefix = "", isDetailPage = false } = Astro.props;
 ---
 
 <!-- tf-btn-menu -->
@@ -20,57 +26,47 @@
             </div>
             <ul class="sidebar-nav nav-scroll">
                 <li>
-                    <a class="scroll-to active" href="#home">
+                    <a class={isDetailPage ? "" : "scroll-to active"} href={isDetailPage ? langPrefix + "/" : "#home"}>
                         <i class="icon icon-home-solid"></i><span class="text-body-2" data-i18n="nav.home">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a class="scroll-to" href="#experience">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#experience" : "#experience"}>
                         <i class="icon icon-toolbox-solid"></i><span class="text-body-2" data-i18n="nav.experience">Experience</span>
                     </a>
                 </li>
                 <li>
-                    <a class="scroll-to" href="#works">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#works" : "#works"}>
                         <i class="icon icon-tasks-solid"></i><span class="text-body-2" data-i18n="nav.works">Selected Works</span>
                     </a>
                 </li>
                 <li>
-                    <a class="scroll-to" href="#services">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#services" : "#services"}>
                         <i class="icon icon-stream-solid"></i><span class="text-body-2" data-i18n="nav.services">Services</span>
                     </a>
                 </li>
                 <li>
-                    <a class="scroll-to" href="#about">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#about" : "#about"}>
                         <i class="icon icon-user-solid"></i><span class="text-body-2" data-i18n="nav.about">About</span>
                     </a>
                 </li>
-                <li>
-                    <a class="scroll-to" href="#testimonial">
+                <!-- <li>
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#testimonial" : "#testimonial"}>
                         <i class="icon icon-poll-h-solid"></i><span class="text-body-2" data-i18n="nav.testimonial">Testimonial</span>
                     </a>
-                </li>
+                </li> -->
                 <li>
-                    <a class="scroll-to" href="#partners">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#partners" : "#partners"}>
                         <i class="icon icon-user-friends-solid"></i><span class="text-body-2" data-i18n="nav.partners">Partners</span>
                     </a>
                 </li>
                 <!-- <li>
-                    <a class="scroll-to" href="#awards">
-                        <i class="icon icon-ring-solid"></i><span class="text-body-2">Awards</span>
-                    </a>
-                </li> -->
-                <li>
-                    <a class="scroll-to" href="#pricing">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#pricing" : "#pricing"}>
                         <i class="icon icon-tags-solid"></i><span class="text-body-2" data-i18n="nav.pricing">Pricing</span>
                     </a>
-                </li>
-                <!-- <li>
-                    <a class="scroll-to" href="#faqs">
-                        <i class="icon icon-comment-alt-solid"></i><span class="text-body-2">FAQs</span>
-                    </a>
                 </li> -->
                 <li>
-                    <a class="scroll-to" href="#contact">
+                    <a class={isDetailPage ? "" : "scroll-to"} href={isDetailPage ? langPrefix + "/#contact" : "#contact"}>
                         <i class="icon icon-envelope-solid"></i><span class="text-body-2" data-i18n="nav.contact">Contact</span>
                     </a>
                 </li>

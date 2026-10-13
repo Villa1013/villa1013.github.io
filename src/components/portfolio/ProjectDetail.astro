@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BodyOverlay from "./BodyOverlay.astro";
+import MobileNav from "./MobileNav.astro";
+import RightNav from "./RightNav.astro";
+import LeftSidebar from "./LeftSidebar.astro";
+import SiteFooter from "./SiteFooter.astro";
+import type { Project } from "../../data/projects";
+import { projects } from "../../data/projects";
+
+interface Props {
+  project: Project;
+  lang: "en" | "es";
+  langPrefix: string;
+}
+
+const { project, lang, langPrefix } = Astro.props;
+const t = project[lang];
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const alternateLang = lang === "en" ? "es" : "en";
+const alternateHref = lang === "en"
+  ? `/es/work/${project.slug}/`
+  : `/work/${project.slug}/`;
+const alternateURL = new URL(alternateHref, Astro.site);
+
+const currentIndex = projects.findIndex((p) => p.slug === project.slug);
+const totalProjects = projects.length;
+const nextProject = projects[(currentIndex + 1) % projects.length];
+const nextT = nextProject[lang];
+
+const nextProjectLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: t.name,
+  description: t.description,
+  author: {
+    "@type": "Person",
+    name: "William Villalba",
+  },
+  keywords: t.tech.join(", "),
+  url: canonicalURL.href,
+};
+
+const i18nNext = {
+  en: { nextProject: "Next Project", viewProject: "View Project", context: "Context", myRole: "My Role", techStack: "Tech Stack" },
+  es: { nextProject: "Siguiente Proyecto", viewProject: "Ver Proyecto", context: "Contexto", myRole: "Mi Rol", techStack: "Tecnologías" },
+};
+const labels = i18nNext[lang];
+---
+
+<BaseLayout
+  title={`${t.name} — William Villalba | Villa1013`}
+  description={t.description}
+  image={project.image}
+  lang={lang === "es" ? "es-CO" : "en-US"}
+>
+  <link rel="alternate" hreflang={lang === "en" ? "en" : "es"} href={canonicalURL.href} />
+  <link rel="alternate" hreflang={alternateLang} href={alternateURL.href} />
+  <script type="application/ld+json" set:html={JSON.stringify(nextProjectLd)} />
+
+  <div id="wrapper">
+    <BodyOverlay />
+    <MobileNav langPrefix={langPrefix} isDetailPage={true} />
+    <RightNav langPrefix={langPrefix} isDetailPage={true} />
+    <LeftSidebar langPrefix={langPrefix} />
+
+    <div class="main-content relative">
+      <section class="section-project-detail" id="project">
+        <div class="tf-container">
+          <div class="row">
+            <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
+
+              <div class="project-top-bar">
+                <a href={langPrefix + "/#works"} class="project-back text-body-2">
+                  <i class="icon icon-angle-left-solid"></i>
+                  <span data-i18n="nav.works">Works</span>
+                </a>
+                <span class="project-pagination text-body-2">{currentIndex + 1} / {totalProjects}</span>
+              </div>
+
+              <div class="project-hero-image">
+                <img src={project.image} alt={t.name} />
+              </div>
+
+              <div class="project-info">
+                <span class="project-category sub-heading">{t.category}</span>
+                <h1 class="project-title">{t.name}</h1>
+                <p class="project-description text-body-1">{t.description}</p>
+
+                <div class="project-section-block">
+                  <h3 class="project-section-label">{labels.context}</h3>
+                  <p class="project-section-text text-body-1">{t.context}</p>
+                </div>
+
+                <div class="project-section-block">
+                  <h3 class="project-section-label">{labels.myRole}</h3>
+                  <p class="project-section-text text-body-1">{t.role}</p>
+                </div>
+
+                <div class="project-section-block">
+                  <h3 class="project-section-label">{labels.techStack}</h3>
+                  <div class="project-tech-table">
+                    {t.techCategories.map((category) => (
+                      <div class="project-tech-row">
+                        <span class="project-tech-label">{category.label}</span>
+                        <span class="project-tech-values">{category.items.join(" · ")}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {project.link && (
+                  <a class="project-cta pill-btn" href={project.link} target="_blank" rel="noopener noreferrer">
+                    <span data-i18n="modal.view_project">View Project</span>
+                    <i class="icon icon-arrow-top-right"></i>
+                  </a>
+                )}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-project-next">
+        <div class="tf-container">
+          <div class="row">
+            <div class="offset-xxl-5 col-xxl-7 offset-xl-4 col-xl-7 offset-lg-2 col-lg-8">
+              <div class="project-next-label">{labels.nextProject}</div>
+              <a href={`${langPrefix}/work/${nextProject.slug}/`} class="project-next-card">
+                <div class="project-next-content">
+                  <div class="project-next-info">
+                    <span class="project-next-category">{nextT.category}</span>
+                    <h2 class="project-next-title">{nextT.name}</h2>
+                  </div>
+                  <span class="project-next-arrow">
+                    <i class="icon icon-arrow-top-right"></i>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <SiteFooter langPrefix={langPrefix} />
+  </div>
+
+  <script is:inline>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+      gsap.registerPlugin(ScrollTrigger);
+
+      var targets = [
+        ".project-back",
+        ".project-hero-image",
+        ".project-category",
+        ".project-title",
+        ".project-description",
+        ".project-section-block",
+        ".project-cta",
+        ".section-project-next .project-next-label",
+        ".section-project-next .project-next-card",
+      ];
+
+      targets.forEach(function (selector) {
+        var els = document.querySelectorAll(selector);
+        if (!els.length) return;
+        els.forEach(function (el) {
+          gsap.from(el, {
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+              once: true,
+            },
+          });
+        });
+      });
+    });
+  </script>
+</BaseLayout>
